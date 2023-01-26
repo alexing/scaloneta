@@ -1,10 +1,11 @@
 from datetime import datetime
-from typing import Optional
+from typing import Optional, Union
 
 import pytwitter
 from os import environ as env
 
 from dotenv import load_dotenv
+from pytwitter.models import Tweet
 
 load_dotenv()
 
@@ -35,24 +36,24 @@ Todavía no hay fechas agendadas para {team_name} 😢
 """
 
 
-def __tweet(message: str) -> Optional[str]:
+def __tweet(message: str) -> Union[dict, Tweet]:
     posted_tweet = api.create_tweet(text=message)
-    return posted_tweet.id
+    return posted_tweet
 
 
 def tweet_countdown(team_name: str, home: str, away: str, how_many_days: int, league: str,
-                    match_date: datetime) -> Optional[str]:
+                    match_date: datetime) -> Union[dict, Tweet]:
     return __tweet(template_tweet_countdown.format(how_many_days=how_many_days, team_name=team_name,
                                                    away=away, home=home, league=league,
                                                    match_date=match_date.strftime('%d/%m')))
 
 
 def tweet_today(team_name: str, home: str, away: str, league: str,
-                match_date: datetime) -> Optional[str]:
+                match_date: datetime) -> Union[dict, Tweet]:
     return __tweet(template_tweet_today.format(team_name=team_name,
                                                away=away, home=home, league=league,
                                                match_date=match_date.strftime('%H:%M')))
 
 
-def tweet_no_match(team_name: str) -> Optional[str]:
+def tweet_no_match(team_name: str) -> Union[dict, Tweet]:
     return __tweet(template_no_match_tweet.format(team_name=team_name))
