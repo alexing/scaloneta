@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 
 from football_api import get_fixture
 from twitter import tweet_countdown, tweet_no_match, tweet_today
+from os import environ as env
 
 load_dotenv()
 
@@ -47,4 +48,13 @@ def main(team_id: int, team_name: str):
 
 
 if __name__ == "__main__":
-    main(RIVER_ID, "River Plate")
+
+    if env['team'] == 'RIVER':
+        team_id = RIVER_ID
+        team_name = "River Plate"
+    elif env['team'] == 'ARG':
+        team_id = ARGENTINA_ID
+        team_name = "La Scaloneta"
+    else:
+        raise Exception('team not supported!')
+    main(team_id, team_name)
