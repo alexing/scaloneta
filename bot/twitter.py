@@ -71,3 +71,4 @@ def tweet_today(team_name: str, home: str, away: str, league: str,
 def tweet_no_match(team_name: str) -> Dict[str, Any]:
     return __tweet(template_no_match_tweet.format(team_name=team_name), img_dir='no_match')
 
+

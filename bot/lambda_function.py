@@ -34,8 +34,7 @@ def lambda_handler(event, context):
             tweet = tweet_countdown(how_many_days=how_many_days, team_name=team_name,
                                     away=away, home=home, league=league, match_date=match_date)
         else:
-            tweet = tweet_today(team_name=team_name, home=home, away=away, league=league,
-                                match_date=match_date)
+            tweet = tweet_today(team_name=team_name, home=home, away=away, league=league, match_date=match_date)
         return {"statusCode": 200, "tweet": tweet['text']}
     else:
         if not datetime.now().day % 3:  # every 3 days
