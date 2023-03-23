@@ -13,7 +13,7 @@ load_dotenv()
 twitter_session = OAuth1Session(env["API_KEY"], env["API_KEY_SECRET"], env["ACCESS_TOKEN"], env["ACCESS_TOKEN_SECRET"])
 
 template_tweet_countdown = """
-¡Faltan {how_many_days} días para que juegue {team_name}! 🇦🇷
+¡Faltan {how_many_days} día{s} para que juegue {team_name}! 🇦🇷
 
 ⚽️ Próximo partido:
 {match_date} - {home} vs. {away}
@@ -56,8 +56,8 @@ def __tweet(message: str, img_dir: str) -> Dict[str, Any]:
 
 def tweet_countdown(team_name: str, home: str, away: str, how_many_days: int, league: str,
                     match_date: datetime) -> Dict[str, Any]:
-    return __tweet(template_tweet_countdown.format(how_many_days=how_many_days, team_name=team_name,
-                                                   away=away, home=home, league=league,
+    return __tweet(template_tweet_countdown.format(how_many_days=how_many_days, s='' if how_many_days == 1 else 's',
+                                                   team_name=team_name, away=away, home=home, league=league,
                                                    match_date=match_date.strftime('%d/%m')), img_dir='match')
 
 
