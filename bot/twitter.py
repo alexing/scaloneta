@@ -27,10 +27,6 @@ template_tweet_today = """
 {league}
 """
 
-template_no_match_tweet = """
-Todavía no hay fechas agendadas para {team_name} 😢
-"""
-
 
 def __upload_random_image(images_dir: str) -> str:
     complete_img_dir = f'pics/{images_dir}'
@@ -66,9 +62,3 @@ def tweet_today(team_name: str, home: str, away: str, league: str,
     return __tweet(template_tweet_today.format(team_name=team_name,
                                                away=away, home=home, league=league,
                                                match_date=match_date.strftime('%H:%M')), img_dir='today')
-
-
-def tweet_no_match(team_name: str) -> Dict[str, Any]:
-    return __tweet(template_no_match_tweet.format(team_name=team_name), img_dir='no_match')
-
-

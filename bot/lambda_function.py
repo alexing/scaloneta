@@ -6,7 +6,7 @@ ROOT = Path(__file__).resolve().parents[0]
 
 from football_api import get_fixture
 from time_utils import BA_TZ, utc_to_ba_tz
-from twitter import tweet_countdown, tweet_no_match, tweet_today
+from twitter import tweet_countdown, tweet_today
 
 ARGENTINA_ID = 26
 RIVER_ID = 435
@@ -36,9 +36,5 @@ def lambda_handler(event, context):
         else:
             tweet = tweet_today(team_name=team_name, home=home, away=away, league=league, match_date=match_date)
         return {"statusCode": 200, "tweet": tweet['text']}
-    else:
-        if not datetime.now().day % 3:  # every 3 days
-            tweet = tweet_no_match(team_name=team_name)
-            return {"statusCode": 200, "tweet": tweet['text']}
 
     return {"statusCode": 404, "tweet": 'none'}
